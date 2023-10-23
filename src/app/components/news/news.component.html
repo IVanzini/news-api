@@ -6,6 +6,11 @@
         name="q" autocomplete="off"  #q="ngModel">
     </div>
     <div class="form-group mb-2">
+        <select name="selectOptions" class="form-select" [(ngModel)]="searchIn">
+            <option *ngFor="let o of searchInOptions" [value]="o">{{o}}</option>
+        </select>
+    </div>
+    <div class="form-group mb-2">
         <button type="submit" class="btn btn-primary" [disabled]="!miaForm.valid">Cerca</button>
     </div>
 </form>

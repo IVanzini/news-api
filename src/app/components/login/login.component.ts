@@ -26,8 +26,8 @@ export class LoginComponent {
     )
     .subscribe(loggedUser => {
       if (loggedUser) {
-        this.authService.setLoggedUser(loggedUser);
-        console.log(loggedUser);
+        //this.authService.setLoggedUser(loggedUser);
+        //console.log(loggedUser);
         this.router.navigate(['/', 'news']);
       }
     })

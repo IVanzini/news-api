@@ -13,6 +13,8 @@ export class NewsComponent { //implements OnInit {
   errorMessage = "";
   articles: Article[] = [];
   qParameter = "";
+  searchInOptions = ["title", "description", "content"];
+  searchIn ="title";
 
   constructor(private newsService: NewsService) {}
   
@@ -21,7 +23,7 @@ export class NewsComponent { //implements OnInit {
   // }
 
   searchEverything(): void {
-    this.newsService.searchEverything(this.qParameter)
+    this.newsService.searchEverything(this.qParameter, this.searchIn)
     .pipe(
       catchError((e: HttpErrorResponse) => {
         this.errorMessage = e.error;

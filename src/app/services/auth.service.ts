@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { LoggedUser, LoginDTO } from '../models/auth';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,17 @@ export class AuthService {
   constructor(private http:HttpClient) { }
 
   login(model: LoginDTO) : Observable<LoggedUser> {
-    return this.http.post<LoggedUser>(this.base_Url + "/login", model);
+    return this.http.post<LoggedUser>(this.base_Url + "/login", model)
+    .pipe(
+      tap({next: (loggedUser: LoggedUser) => {
+        console.log(loggedUser);
+        this.setLoggedUser(loggedUser)
+        }
+      })
+    );
   }
 
-  setLoggedUser(loggedUser: LoggedUser) : void {
+  private setLoggedUser(loggedUser: LoggedUser) : void {
     localStorage.setItem("user", JSON.stringify(loggedUser));
   }
 
@@ -30,4 +37,10 @@ export class AuthService {
   get isUserLogged(): boolean {
     return this.getLoggedUser() != null;
   }
+
+  deleteUser(): void {
+    localStorage.removeItem("user");
+  }
 }
+
+

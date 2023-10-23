@@ -17,9 +17,9 @@ export class NewsService {
 
   constructor(private http: HttpClient) { }
 
-  searchEverything(q: string): Observable<SearchResponse> {
+  searchEverything(q: string, searchIn: string = "title"): Observable<SearchResponse> {
     const encodedQ = encodeURI(q);
-    console.log(this.baseUrl + "/everything?q=" + encodedQ);
-    return this.http.get<SearchResponse>(this.baseUrl + "/everything?q=" + encodedQ, this.httpOptions);
+    console.log(this.baseUrl + "/everything?q=" + encodedQ + "&language=it&searchIn=" + searchIn);
+    return this.http.get<SearchResponse>(this.baseUrl + "/everything?q=" + encodedQ + "&language=it&searchIn=" + searchIn, this.httpOptions);
   }
 }
